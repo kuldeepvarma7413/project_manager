@@ -1,0 +1,40 @@
+.container{
+    width: 200px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    background-color: #dedede;
+    height: fit-content;
+}
+.container-header{
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+.container-content{
+    max-height: 75vh;
+    overflow: auto;
+    padding-right: 4px;
+}
+.addTask{
+    color: rgb(0, 153, 255);
+    display: inline-block;
+    padding: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #dedede;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9c9c9c;
+}

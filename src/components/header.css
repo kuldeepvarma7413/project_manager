@@ -1,0 +1,23 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+    padding: 0px 20px;
+    background-color: black;
+}
+.logo img{
+    height: 55px;
+}
+.profile{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.profile img{
+    height: 40px;
+    border-radius: 50%;
+}
+.profile p{
+    color: white;
+}
