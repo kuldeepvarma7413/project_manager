@@ -1,0 +1,48 @@
+.all-employee-container{
+    width: 100%;
+    margin: 0px 50px;
+    text-align: center;
+}
+.employee-list{
+    list-style: none;
+    width: 100%;
+    margin: 0px auto;
+    font-size: 14px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 78vh;
+    border-radius: 24px;
+}
+.employee-list-card{
+    width: 98%;
+    display: grid;
+    grid-template-columns: 3% 13% 22% 8% 8% 10% 20% 7% 11%;
+    align-items: center;
+    padding: 10px ;
+    background-color: #c5edfe;
+    border-radius: 24px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.head-list{
+    background-color: rgb(0, 153, 255);
+    color: white;
+}
+.employee-list-card:hover{
+    background-color: rgb(0, 153, 255);
+    color: white;
+}
+.employee-list-card:hover button {
+    background-color: white;
+    color: rgb(0, 153, 255);
+}
+.employee-list-card img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+.delete-icon:hover{
+    color: red;
+}
+
+/* scrollbar */

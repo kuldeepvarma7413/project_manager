@@ -1,11 +1,11 @@
-import './container.css'
+import './css/container.css'
 import Card from './card';
-function Container(){
+function Container(props){
     return(
         <>
             <div className='container'>
-                <div className="container-header">
-                    <p className="container-title">Container 1</p>
+                <div className="container-header" style={{backgroundColor: props.bgcolor}}>
+                    <p className="container-title">{props.title}</p>
                     <div className="container-header-right">
                         <p className='taskCount'>0</p>
                     </div>
@@ -17,7 +17,7 @@ function Container(){
                     <Card></Card>
                 </div>
                 <div>
-                    <a href='#' className='addTask'>Add task...</a>
+                    <button href='#' className='addTask'>Add task...</button>
                 </div>
             </div>
         </>

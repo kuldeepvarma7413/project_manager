@@ -1,40 +1,32 @@
 .container{
-    width: 200px;
-    padding: 0px 10px;
-    border-radius: 5px;
+    width: 220px;
+    border-radius: 15px;
     background-color: #dedede;
     height: fit-content;
 }
 .container-header{
+    border-radius: 15px 15px 0px 0px;
+    padding: 0px 10px;
     display: flex;
-    height: 50px;
+    height: 40px;
+    background-color: red;
     justify-content: space-between;
     align-items: center;
 }
 .container-content{
     max-height: 75vh;
+    padding: 8px 5px;
     overflow: auto;
     padding-right: 4px;
 }
 .addTask{
     color: rgb(0, 153, 255);
+    border-radius: 0px 0px 15px 15px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
     display: inline-block;
     padding: 10px;
-}
-
-::-webkit-scrollbar {
-    width: 3px;
-}
-  
-::-webkit-scrollbar-track {
-    background: #dedede;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #f1f1f1;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #9c9c9c;
 }

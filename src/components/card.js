@@ -1,4 +1,4 @@
-import './card.css'
+import './css/card.css'
 import updatePng from '../raw/icons/update.png'
 function Card(){
     return(
@@ -11,11 +11,11 @@ function Card(){
                         <p className='assignedTo'>assigned to</p>
                     </div>
                     <div className="card-right">
-                        <img src="https://t3.ftcdn.net/jpg/00/75/33/10/360_F_75331081_axIcnWZnT1RbSsPGlgLQaCftelG158KV.jpg" />
+                        <img alt="employee" src="https://t3.ftcdn.net/jpg/00/75/33/10/360_F_75331081_axIcnWZnT1RbSsPGlgLQaCftelG158KV.jpg" />
                     </div>
                 </div>
                 <div className='progressbar'>
-                    <a className='updateBtn'><img src={updatePng} /></a>
+                    <p className='updateBtn'><img src={updatePng} alt="upload button" /></p>
                     <p className='deadline tag-background'>23-02-24</p>
                     <p className='progress tag-background'>Pg: 48%</p>
                 </div>
