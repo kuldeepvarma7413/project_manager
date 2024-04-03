@@ -43,15 +43,14 @@
 .progressbar{
     display: flex;
     row-gap: 5px;
-    column-gap: 10px;
+    column-gap: 5px;
     flex-wrap: wrap;
 }
 .updateBtn{
     cursor: pointer;
-}
-.updateBtn img{
-    width: 15px;
-    height: 15px;
+    background-color: rgb(0, 153, 255);
+    border-radius: 10px;
+    padding: 0px 5px;
 }
 .deadline{
     background-color: rgb(204, 0, 0);

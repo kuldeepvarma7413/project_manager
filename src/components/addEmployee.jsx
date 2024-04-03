@@ -26,31 +26,6 @@ function AddEmployee(){
             Data.append('photo', image);
             console.log(Data.get('photo'));
             fetch('http://127.0.0.1:7413/add-employee',{method:'POST', body: Data}).then(res=>res.json()).then(data=>console.log(data)).catch(err=>console.log(err));
-            // Rest of the code...
-            // fetch('http://127.0.0.1:7413/add-employee', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: formData
-            // })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         // Handle the response data
-            //         console.log(data);
-            //         // reset form data
-            //         setName('');
-            //         setEmail('');
-            //         setDesignation('');
-            //         setDepartment('');
-            //         setPhone('');
-            //         setAddress('');
-            //         setImage(null);
-            //     })
-            //     .catch(error => {
-            //         // Handle any errors
-            //         console.error(error);
-            //     });
                 
         } else {
             console.log('Please fill in all fields');
