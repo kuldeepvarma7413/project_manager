@@ -41,7 +41,11 @@
     width: 40px;
     border-radius: 50%;
 }
-.delete-icon:hover{
+.actions{
+    display: flex;
+    gap: 5px;
+}
+.actions svg:hover{
     color: red;
 }
 

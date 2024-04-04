@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './css/AllEmployees.css';
-
-// icons
-import { MdDelete } from "react-icons/md";
+import { Pencil, Trash2 } from 'lucide-react';
+import Popup from './popupEmployee';
+import { organization_id } from '../App';
 
 const AllEmployees = () => {
     const [employees, setEmployees] = useState([]);
@@ -10,7 +10,7 @@ const AllEmployees = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await fetch('http://localhost:7413/get-employees?organizationId=your_organization_id');
+                const response = await fetch(`http://localhost:7413/get-employees?organizationId=${organization_id}`);
 
                 if (response.ok) {
                     const data = await response.json();
@@ -47,6 +47,33 @@ const AllEmployees = () => {
             console.error('Error:', error);
         }
     };
+    // loader
+    const [loadingMessage, setLoadingMessage] = useState('Loading...')
+
+    useEffect(() => {
+        const timer = setTimeout(()=>{
+            setLoadingMessage('No employees found')
+        }, 2500);
+
+        return ()=> clearTimeout(timer);
+    }, []);
+
+    const [empData, setEmpData] = useState({});
+    const [showPopup, setShowPopup] = useState(false);
+    const handleEdit = (employee) => {
+        setEmpData(employee);
+        setShowPopup(true);
+    };
+
+    // update employee in local
+    const changeData = (employee) => {
+        setEmployees(employees => employees.map((emp) => {
+            if(emp._id === employee._id){                
+                return employee;
+            }
+            return emp;
+        }));
+    };
 
     return (
         <div className='all-employee-container'>
@@ -64,7 +91,7 @@ const AllEmployees = () => {
             </li>
             <ul className='employee-list'>
                 {employees.length===0? (
-                    <p>No employees found</p>
+                    <p>{loadingMessage}</p>
                 ):(
                     employees.map((employee, index) => (
                         <li key={employee._id} className='employee-list-card'>
@@ -76,10 +103,14 @@ const AllEmployees = () => {
                             <p>{employee.phone}</p>
                             <p>{employee.address}</p>
                             <img src={employee.photo} alt="Employee Photo" />
-                            <MdDelete onClick={() => deleteEmployee(employee._id)} size={26} className='delete-icon'/>
+                            <div className='actions'>
+                                <Pencil onClick={()=> {handleEdit(employee)}} size={20} className='edit-icon'/>
+                                <Trash2 onClick={() => deleteEmployee(employee._id)} size={20} className='delete-icon'/>
+                            </div>
                         </li>
                     ))
                 )}
+                {showPopup && <Popup onclose={()=>setShowPopup(false)} employeeData={empData} updateEmp={changeData} />}
             </ul>
         </div>
     );

@@ -1,6 +1,5 @@
 import './css/card.css'
 import { Pencil } from 'lucide-react';
-import Popup from './popupEmployee';
 function Card(){
     return(
         <>
@@ -21,7 +20,6 @@ function Card(){
                     <p className='progress tag-background'>Pg: 48%</p>
                 </div>
             </div>
-            <Popup />
         </>
     )
 }

@@ -6,6 +6,8 @@ import RightSection from './components/rightSection';
 import AddEmployee from './components/addEmployee';
 import AllEmployees from './components/AllEmployees';
 
+
+const organization_id="660958393b2394bb5fe31222";
 function App() {
   return (
     <Router>
@@ -24,8 +26,10 @@ function App() {
           </div>
         </div>
       </div>
+      {/* <Popup /> */}
     </Router>
   );
 }
 
 export default App;
+export {organization_id}
