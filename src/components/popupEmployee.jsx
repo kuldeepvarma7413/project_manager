@@ -12,7 +12,7 @@ function Popup({ onclose, employeeData, updateEmp }) {
     department: employeeData.department,
     phone: employeeData.phone,
     address: employeeData.address,
-    image: employeeData.photo,
+    photo: employeeData.photo,
   }); // State variables for employee details
 
   const closePopup = (e) => {
@@ -34,6 +34,7 @@ function Popup({ onclose, employeeData, updateEmp }) {
       });
       if (response.ok) {
         updateEmp(employee)
+        onclose();
         console.log("Employee updated successfully");
       } else {
         console.log("Failed to update employee");
@@ -47,7 +48,7 @@ function Popup({ onclose, employeeData, updateEmp }) {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      const updatedEmployee = { ...employee, image: reader.result };
+      const updatedEmployee = { ...employee, photo: reader.result };
       setEmployee(updatedEmployee);
     };
     if (file) {
@@ -64,7 +65,7 @@ function Popup({ onclose, employeeData, updateEmp }) {
     <>
       <div ref={popupBackRef} onClick={closePopup} className="popup">
         <div className="popup_content">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="popup-form">
             <div className="left">
               <label>Name</label>
               <input
@@ -125,7 +126,7 @@ function Popup({ onclose, employeeData, updateEmp }) {
               <p className="close-btn">
                 <X onClick={onclose} color="white" />
               </p>
-              <img src={employee.image} alt="" />
+              <img src={employee.photo} alt="" />
               <label htmlFor="image" className="upload-icon">
                 <Upload color="white" size={12} />
               </label>

@@ -1,14 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import {useSnackbar} from './components/snackbar';
 import './App.css';
 import Header from './components/header';
 import LeftSection from './components/leftSection';
 import RightSection from './components/rightSection';
 import AddEmployee from './components/addEmployee';
 import AllEmployees from './components/AllEmployees';
+// import Snackbar from './components/snackbar';
 
 
 const organization_id="660958393b2394bb5fe31222";
 function App() {
+  // const [showSnackbar, snackbarContent, snackbarColor, displaySnackbar] = useSnackbar();
+  
   return (
     <Router>
       <div className='main-container'>
@@ -26,10 +30,10 @@ function App() {
           </div>
         </div>
       </div>
-      {/* <Popup /> */}
     </Router>
   );
 }
+// {showSnackbar && <Snackbar content={snackbarContent} bgcolor={snackbarColor} />}
 
 export default App;
 export {organization_id}

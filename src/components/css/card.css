@@ -37,6 +37,7 @@
 }
 .assignedTo{
     margin-bottom: 5px;
+    font-size: 12px;
     width: fit-content;
 }
 
@@ -61,6 +62,7 @@
 
 .card-right img{
     width: 50px;
+    border-radius: 50%;
     height: auto;
 }
 

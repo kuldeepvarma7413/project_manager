@@ -3,6 +3,7 @@ import './css/AllEmployees.css';
 import { Pencil, Trash2 } from 'lucide-react';
 import Popup from './popupEmployee';
 import { organization_id } from '../App';
+// import Snackbar from './snackbar';
 
 const AllEmployees = () => {
     const [employees, setEmployees] = useState([]);
@@ -14,7 +15,6 @@ const AllEmployees = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     setEmployees(data);
                 } else {
                     console.error('Failed to fetch employees');
@@ -102,7 +102,7 @@ const AllEmployees = () => {
                             <p>{employee.department}</p>
                             <p>{employee.phone}</p>
                             <p>{employee.address}</p>
-                            <img src={employee.photo} alt="Employee Photo" />
+                            <img src={employee.photo} alt="Employee" />
                             <div className='actions'>
                                 <Pencil onClick={()=> {handleEdit(employee)}} size={20} className='edit-icon'/>
                                 <Trash2 onClick={() => deleteEmployee(employee._id)} size={20} className='delete-icon'/>

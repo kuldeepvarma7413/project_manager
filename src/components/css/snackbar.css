@@ -1,0 +1,21 @@
+.snackbar-label{
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    transition: ease-in 0.5s;
+}
+.snackbar-label svg{
+    color: white;
+    cursor: pointer;
+}
+.snackbar-label svg:hover{
+    color: red;
+}

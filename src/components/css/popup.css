@@ -21,7 +21,7 @@
     cursor: pointer;
 }
 /* form */
-form{
+.popup-form{
     display: grid !important;
     grid-template-columns: 50% 50%;
     color: white;
@@ -97,4 +97,7 @@ input{
 }
 .add_employee_container form{
     grid-template-columns: 60% 40%;
+}
+.add_employee_container form{
+    display: flex;
 }
