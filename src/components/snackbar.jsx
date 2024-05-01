@@ -1,60 +1,32 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import "./css/snackbar.css";
-import { X } from "lucide-react";
 
-export const Snackbar=({ show, content, color })=> {
-  const [visible, setVisible] = useState(false);
+const Snackbar = forwardRef((props, ref) => {
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
-  useEffect(() => {
-    console.log("Snackbar called");
-    setVisible(true);
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, 3000);
-
-    return () => {
-        clearTimeout(timer);
-    };
-  }, []);
-
-  const hideSnackbar = () => {
-    setVisible(false);
-  };
-
+  useImperativeHandle(ref, () => ({
+    show() {
+      setShowSnackbar(true);
+      setTimeout(() => {
+        setShowSnackbar(false);
+      }, 3000);
+    },
+  }));
   return (
     <div
-      className={`snackbar-label ${visible ? "show" : "hide"}`}
+      className="snackbar"
+      id={showSnackbar ? "show" : "hide"}
       style={{
-        top: visible ? "20px" : "-100px",
-        backgroundColor: color,
+        backgroundColor: props.type === "success" ? "#00F593" : "#FF0033",
+        color: props.type === "success" ? "black" : "white",
       }}
     >
-      <p>{content}</p>
-      <X size={20} onClick={hideSnackbar}/>
+      <div className="symbol">
+        {props.type === "success" ? <h1>&#x2713;</h1> : <h1>&#x2613;</h1>}
+      </div>
+      <div className="message">{props.message}</div>
     </div>
   );
-}
-
-// useSnackbar hook
-const useSnackbar = (initialMessage = '', initialColor = 'red') => {
-  const [showSnackbar, setShowSnackbar] = useState(false);
-  const [snackbarContent, setSnackbarContent] = useState(initialMessage);
-  const [snackbarColor, setSnackbarColor] = useState(initialColor);
-  const timeoutRef = useRef(null);
-
-  const displaySnackbar = (message, color) => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-      setSnackbarContent(message);
-      setSnackbarColor(color);
-
-      timeoutRef.current = setTimeout(() => setShowSnackbar(false), 3000);
-
-      setShowSnackbar(true);
-  };
-
-  return [showSnackbar, snackbarContent, snackbarColor, displaySnackbar];
-};
+});
 
 export default Snackbar;
-export { useSnackbar };

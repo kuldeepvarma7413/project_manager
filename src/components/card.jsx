@@ -1,6 +1,6 @@
 import './css/card.css'
 import { Pencil } from 'lucide-react';
-function Card({card, dragStart}){
+function Card({card, dragStart, updateCardData}){
     return(
         <>
             <div className="card" draggable onDragStart={(e)=>dragStart(e,card._id)}>
@@ -15,7 +15,9 @@ function Card({card, dragStart}){
                     </div>
                 </div>
                 <div className='progressbar'>
-                    <p className='updateBtn'><Pencil size={14} color='white' /></p>
+                <span className='updateBtn' key={card._id} onClick={(e) => { e.stopPropagation(); updateCardData(card._id); }}>
+                    <Pencil size={14} color='white' />
+                </span>
                     <p className='deadline tag-background'>{card.deadline}</p>
                     <p className='progress tag-background'>Pg: {card.progress}%</p>
                 </div>

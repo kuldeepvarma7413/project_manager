@@ -11,14 +11,23 @@ function RightSection(){
     // popup
     const [showTaskPopup, setShowPopup] = useState(false);
     const [containerId, setContainerId] = useState('');
+    const [task, setTask] = useState('');
+    const [update, setUpdate] = useState(false);
 
     // create hook to show popup declared above
     const closePopup = () => {
+        // clear all fields
+        setTask('');
         setShowPopup(false);
     }
 
-    const showPopup = (containerId) => {
+    const showPopup = (containerId, task = null) => {
         setContainerId(containerId);
+        setUpdate(false);
+        if(task){
+            setTask(task)
+            setUpdate(true);
+        }        
         setShowPopup(true);
     }
 
@@ -32,6 +41,7 @@ function RightSection(){
                 if (response.ok) {
                     const data = await response.json();
                     setTasks(data);
+                    console.log(data)
                 } else {
                     console.error('Failed to fetch tasks');
                 }
@@ -104,17 +114,25 @@ function RightSection(){
         }
     }
 
+    const updateCardData = async (cardId)=>{
+        const task = tasks.find(task => task._id === cardId);
+        console.log(task)
+
+        // open update popup and update task
+        showPopup(task.container_id, task);
+    }
+
     return(
         <>
         <div className="outer-container-right">
-            <Container containerId="1" title="No Project Phase" bgcolor="rgb(171 210 255)" showPop={showPopup} tasks={filterTasks(1)} handleDrop={handleDrop}></Container>
-            <Container containerId="2" title="In Planning" bgcolor="rgb(252 255 162)"  showPop={showPopup} tasks={filterTasks(2)} handleDrop={handleDrop}></Container>
-            <Container containerId="3" title="Estimation" bgcolor="rgb(208 255 156)"  showPop={showPopup} tasks={filterTasks(3)} handleDrop={handleDrop}></Container>
-            <Container containerId="4" title="Active" bgcolor="rgb(251 144 144)"  showPop={showPopup} tasks={filterTasks(4)} handleDrop={handleDrop}></Container>
-            <Container containerId="5" title="Review" bgcolor="rgb(130 255 124)"  showPop={showPopup} tasks={filterTasks(5)} handleDrop={handleDrop}></Container>
+            <Container containerId="1" title="No Project Phase" bgcolor="rgb(171 210 255)" showPop={showPopup} tasks={filterTasks(1)} handleDrop={handleDrop} updateCardData={updateCardData}></Container>
+            <Container containerId="2" title="In Planning" bgcolor="rgb(252 255 162)"  showPop={showPopup} tasks={filterTasks(2)} handleDrop={handleDrop} updateCardData={updateCardData}></Container>
+            <Container containerId="3" title="Estimation" bgcolor="rgb(208 255 156)"  showPop={showPopup} tasks={filterTasks(3)} handleDrop={handleDrop} updateCardData={updateCardData}></Container>
+            <Container containerId="4" title="Active" bgcolor="rgb(251 144 144)"  showPop={showPopup} tasks={filterTasks(4)} handleDrop={handleDrop} updateCardData={updateCardData}></Container>
+            <Container containerId="5" title="Review" bgcolor="rgb(130 255 124)"  showPop={showPopup} tasks={filterTasks(5)} handleDrop={handleDrop} updateCardData={updateCardData}></Container>
         </div>
         {/* {showTaskPopup && <TaskPopup onclose={closePopup} containerId={containerId} />} */}
-        {showTaskPopup && <TaskPopup onclose={closePopup} containerId={containerId} onadd={addcard} employees={employees}/>}
+        {showTaskPopup && <TaskPopup onclose={closePopup} containerId={containerId} task={task} update={update} onadd={addcard} employees={employees}/>}
         </>
     )
 }

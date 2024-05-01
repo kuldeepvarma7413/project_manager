@@ -2,13 +2,14 @@ import React, { useState, useRef } from 'react';
 import './css/taskPopup.css';
 import { organization_id } from '../App';
 
-const TaskPopup = ({onclose, containerId, onadd, employees}) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [phase, setPhase] = useState('');
-    const [assigned_to, setAssignedTo] = useState('');
-    const [deadline, setDeadline] = useState('');
-    const [progress, setProgress] = useState('0');
+const TaskPopup = ({onclose, containerId, onadd, employees, task, update}) => {
+    const [_id, setId] = useState(task ? task._id : '')
+    const [title, setTitle] = useState(task ? task.title : '');
+    const [description, setDescription] = useState(task ? task.description : '');
+    const [phase, setPhase] = useState(task ? task.phase : '');
+    const [assigned_to, setAssignedTo] = useState(task ? task.assigned_to : '');
+    const [deadline, setDeadline] = useState(task ? task.deadline : '');
+    const [progress, setProgress] = useState(task ? task.progress : '');
     const organisationId = organization_id;
     // const containerId = props.containerId
     const container_id = containerId
@@ -33,6 +34,8 @@ const TaskPopup = ({onclose, containerId, onadd, employees}) => {
     // Function to handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
+
+
         // Add your logic here to handle the form submission
         // check if all fields are filled
         if (!title || !description || !phase || !assigned_to || !deadline || !progress) {
@@ -54,6 +57,7 @@ const TaskPopup = ({onclose, containerId, onadd, employees}) => {
         }
         // create task object
         const task = {
+            _id,
             title,
             description,
             phase,
@@ -64,34 +68,59 @@ const TaskPopup = ({onclose, containerId, onadd, employees}) => {
             container_id
         };
         console.log(task);
-        // Add your logic here to handle the form submission
-        // send put request
-        fetch('http://localhost:7413/add-task', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(task)
-        })
-            .then(response => response.json())
-            .then(returnedTask => {
-                console.log('Success:', returnedTask);
-                // Close the popup
-                // add task in local too
-                onadd(returnedTask);
-                onclose();
+
+        //update logic
+        if(update){
+            // send put request
+            fetch(`http://localhost:7413/update-task/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(task)
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        // Add the task to the database
-        // Close the popup
+                .then(response => response.json())
+                .then(returnedTask => {
+                    console.log('Success:', returnedTask);
+                    // Close the popup
+                    // add task in local too
+                    onadd(returnedTask);
+                    onclose();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+
+        }else{
+            // Add your logic here to handle the form submission
+            // send put request
+            fetch('http://localhost:7413/add-task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(task)
+            })
+                .then(response => response.json())
+                .then(returnedTask => {
+                    console.log('Success:', returnedTask);
+                    // Close the popup
+                    // add task in local too
+                    onadd(returnedTask);
+                    onclose();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            // Add the task to the database
+            // Close the popup
+        }
     };
 
     return (
         <div className='task-popup' ref={popupBackRef} onClick={closePopup}>
             <form onSubmit={handleSubmit}>
-                <h2>Add Task</h2>
+                <h2>{update==true ? 'Update Task' : 'Add Task'}</h2>
                 <p className='error'>{errorMessage}</p>
                 <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
 
@@ -121,7 +150,7 @@ const TaskPopup = ({onclose, containerId, onadd, employees}) => {
                     <input type="number" id="progress" value={progress} onChange={(e) => setProgress(e.target.value)} placeholder="Progress" />
                 </div>
                 <div className='actions'>
-                    <button type="submit">Add</button>
+                    <button type="submit">{update==true ? 'Update Task' : 'Add Task'}</button>
                     <button onClick={handleCancel}>Close</button>
                 </div>
             </form>

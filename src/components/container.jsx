@@ -1,6 +1,6 @@
 import './css/container.css'
 import Card from './card';
-function Container({containerId, title, bgcolor, showPop, tasks, onadd, handleDrop}){
+function Container({containerId, title, bgcolor, showPop, tasks, onadd, handleDrop, updateCardData}){
 
     const handleDrag=(e, cardId)=>{
         console.log(e.target, cardId)
@@ -21,7 +21,7 @@ function Container({containerId, title, bgcolor, showPop, tasks, onadd, handleDr
                     </div>
                 </div>
                 <div className="container-content" onDragOver={handleDragover} onDrop={(e)=>handleDrop(e, containerId.toString())}>
-                    {tasks.map(task => <Card key={task.id} card={task} dragStart={handleDrag}></Card>)}
+                    {tasks.map(task => <Card key={task.id} card={task} dragStart={handleDrag} updateCardData={updateCardData}></Card>)}
                     {/* cards */}
                 </div>
                 <div>
